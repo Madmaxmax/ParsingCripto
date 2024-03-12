@@ -1,0 +1,2 @@
+# ParsingCripto
+Data acquisition project
