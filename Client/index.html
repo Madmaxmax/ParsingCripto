@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cryptocurrencies</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        main {
+            background-color: #f0f0f0;
+            padding: 20px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .logo:hover {
+            color: #007bff;
+        }
+
+        .search-input {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 300px;
+        }
+
+        .container {
+            margin-top: 20px;
+        }
+
+        .search-results {
+            list-style: none;
+            padding: 0;
+        }
+
+        .news-article {
+            display: flex;
+            flex-wrap: wrap;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            padding: 20px;
+        }
+
+        .title {
+            margin: 0 0 10px;
+            font-weight: bold;
+        }
+
+        .description {
+            margin: 0;
+            flex-basis: 50%;
+        }
+
+        .article-image {
+            max-width: 100px;
+            height: auto;
+            margin-left: auto;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <header>
+          <a class="logo" href="/">Cryptocurrencies</a>
+          <form action="/search" method="GET">
+            <input autofocus class="search-input" value=""
+            placeholder="Enter a news topic" type="search" name="q">
+          </form>
+        </header>
+    </main>
+    <section class="container">
+        {{ range $key, $value := .Results }}
+            <ul class="search-results">
+                <li class="news-article" style="display: flex">
+                    <h3 class="title">{{$key}}</h3>
+                    <p class="description"><b>{{$value.CurrentPrice}}</b></p>
+                    <p class="description"><b>Current Price:</b> ${{$value.CurrentPrice}}</p>
+                    <p class="description"><b>Market Cap:</b> ${{$value.MarketCap}}</p>
+                    <p class="description"><b>Circulating Supply:</b> {{$value.CirculatingSupply}}</p>
+                    <p class="description"><b>Total Supply:</b> {{$value.TotalSupply}} {{$value.Symbol}}</p>
+                    <p class="description"><b>24h High:</b> ${{$value.High24H}}, <b>24h Low:</b> ${{$value.Low24H}}</p>
+                    <p class="description"><b>ATH:</b> ${{$value.Ath}} ({{$value.AthChangePercentage}}% from {{$value.AthDate}})</p>
+                    <p class="description"><b>ATL:</b> ${{$value.Atl}} ({{$value.AtlChangePercentage}}% from {{$value.AtlDate}})</p>
+                    <p class="description"><b>Price Change (24h):</b> ${{$value.PriceChange24H}} ({{$value.PriceChangePercentage24H}}%)</p>
+                    <p class="description"><b>Market Cap Change (24h):</b> ${{$value.MarketCapChange24H}} ({{$value.MarketCapChangePercentage24H}}%)</p>
+                    <p class="description"><b>Total Volume (24h):</b> ${{$value.TotalVolume}}</p>
+                    <div class="metadata">
+                        <a target="_blank" rel="noreferrer noopener" href="{{$value.Image}}">
+                            <img src="{{$value.Image}}" alt="{{$value.Name}} Logo" class="article-image">
+                        </a>
+                    </div>
+                </li>
+            </ul>
+        {{ end }}
+    </section>
+</body>
+</html>
